@@ -16,7 +16,7 @@ export const createTask = async (req,res)=>{
         const newTask = new Task({title,content});
 
         await newTask.save();
-        res.status(201).json("Task created successfully");
+        res.status(201).json(newTask);
 
     }
     catch(error){
@@ -34,7 +34,7 @@ export const updateTask = async (req,res)=>{
             return res.status(404).json({ message: "Task not found" });
         }
         
-        res.status(200).json("Task updated successfully");
+        res.status(200).json(updatedTask);
     }
     catch(error){
         res.status(400).json({ message: error.message });
@@ -48,7 +48,7 @@ export const deleteTask = async (req,res)=>{
         if(!deletedTask){
             return res.status(404).json({ message: "Task not found" });
         }
-        res.status(200).json("Task deleted successfully");
+        res.status(200).json(deletedTask);
     }
     catch(error){
         res.status(400).json({ message: error.message });

@@ -23,10 +23,7 @@ const TodoList = () => {
       }
     };
 
-  useEffect(() => 
-    {
-    
-
+  useEffect(() => {
     fetchTodo();
   }, []);
 
@@ -41,7 +38,6 @@ const TodoList = () => {
     try {
       const res = await api.post("/tasks", {
         title: newTodo,
-        isCompleted: false,
       });
       fetchTodo(); // ✅ update UI instantly
       setNewTodo('');

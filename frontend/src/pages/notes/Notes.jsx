@@ -12,9 +12,10 @@ const Notes = () => {
 
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const apiUrl = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchNotes = async () => {
+      console.log(apiUrl);
       console.log("Fetching notes...");
       try {
         const res = await api.get("/notes");
@@ -54,7 +55,7 @@ const Notes = () => {
       
 
       <div className="notes-grid">
-        {notes?.map(note => (
+        {Array.isArray(notes) && notes.map(note => (
           <NoteCard key={note._id} note={note} setNotes={setNotes}/>
         ))}
       </div>
