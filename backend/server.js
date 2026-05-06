@@ -3,18 +3,17 @@ import { connectDB } from "./config/db.js";
 import notesRoutes from "./routes/notesRoutes.js";
 import cardsRoutes from "./routes/cardRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
-import rateLimiter from './middleware/rateLimiter.js';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 
 app.use(cors({
-    origin:"http://localhost:5173",
-
-}))
-app.use(rateLimiter);
+    origin: process.env.FRONTEND_URL,
+}));
 app.use("/api/notes",notesRoutes);
 app.use("/api/cards",cardsRoutes);
 app.use("/api/tasks",taskRoutes);
