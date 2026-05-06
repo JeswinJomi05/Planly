@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, CheckSquare, StickyNote, Layers, Settings } from 'lucide-react';
+import logo from '../assets/logo.png';
 import './Navigation.css';
 
 const Navigation = () => {
@@ -14,9 +15,9 @@ const Navigation = () => {
     <aside className="sidebar glass">
       <div className="sidebar-header">
         <div className="logo-glow">
-          <div className="logo-icon">P</div>
+          <img src={logo} alt="Planly Logo" className="logo" ></img>
         </div>
-        <h2>Planly</h2>
+        <h1>Planly</h1>
       </div>
       
       <nav className="sidebar-nav">

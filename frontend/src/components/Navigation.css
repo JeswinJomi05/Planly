@@ -22,10 +22,10 @@
   box-shadow: 0 0 15px rgba(129, 140, 248, 0.4);
 }
 
-.logo-icon {
+.logo {
   background: var(--bg-base);
-  width: 36px;
-  height: 36px;
+  width: 65px;
+  height: 65px;
   border-radius: 10px;
   display: flex;
   align-items: center;
