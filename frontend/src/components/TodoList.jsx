@@ -1,30 +1,82 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Plus, Check, Trash2, Circle } from 'lucide-react';
 import './TodoList.css';
+import api from "../lib/axios";
+import { useNavigate } from 'react-router-dom';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, text: 'Review Planly designs', completed: true },
-    { id: 2, text: 'Implement Notes feature', completed: false },
-    { id: 3, text: 'Update User Profile', completed: false },
-  ]);
+  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const addTodo = (e) => {
+  const navigate = useNavigate();
+
+  const fetchTodo = async () => {
+      try {
+        const res = await api.get(`/tasks`);
+        console.log("Fetched todo:", res.data);
+        setTodos(res.data);
+      } catch (error) {
+        console.log("Error in fetching todo", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+  useEffect(() => 
+    {
+    
+
+    fetchTodo();
+  }, []);
+
+  
+  
+
+  const addTodo = async (e) => {
     e.preventDefault();
     if (!newTodo.trim()) return;
-    setTodos([{ id: Date.now(), text: newTodo, completed: false }, ...todos]);
-    setNewTodo('');
+
+    setLoading(true);
+    try {
+      const res = await api.post("/tasks", {
+        title: newTodo,
+        isCompleted: false,
+      });
+      fetchTodo(); // ✅ update UI instantly
+      setNewTodo('');
+    } catch (error) {
+      console.log("Error creating task", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const toggleTodo = (id) => {
-    setTodos(todos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+  const toggleTodo = async (id) => {
+    const todo = todos.find(t => t._id === id);
+    if (!todo) return;
+    console.log("Toggling task:", id, "Current state:", !todo.isCompleted);
+    try {
+        await api.put(`/tasks/${id}`, {
+          title: todo.title,
+          isCompleted: !todo.isCompleted
+        });
+      setTodos(todos.map(t => 
+        t._id === id ? { ...t, isCompleted: !t.isCompleted } : t
+      ));
+    } catch (error) {
+      console.log("Error updating task", error);
+    }
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const deleteTodo = async (id) => {
+     try {
+      await api.delete(`/tasks/${id}`);
+      setTodos(todos.filter(todo => todo._id !== id));
+    } catch (error) {
+      console.log("Error deleting task", error.response || error);
+    }
+    
   };
 
   return (
@@ -48,26 +100,31 @@ const TodoList = () => {
             <span>Add</span>
           </button>
         </form>
-
+        {loading ? <p>Loading...</p> : (
         <ul className="todo-list">
-          {todos.map(todo => (
-            <li key={todo.id} className={`todo-item glass ${todo.completed ? 'completed' : ''}`}>
+          {
+          todos?.map(
+            todo => (
+            <div key={todo._id}>
+            <li className={`todo-item glass ${todo.isCompleted ? 'completed' : ''}`}>
               <button 
                 className="todo-toggle"
-                onClick={() => toggleTodo(todo.id)}
+                onClick={() => toggleTodo(todo._id)}
               >
-                {todo.completed ? <Check className="checked-icon" size={20}/> : <Circle className="unchecked-icon" size={20}/>}
+                {todo.isCompleted ? <Check className="checked-icon" size={20}/> : <Circle className="unchecked-icon" size={20}/>}
               </button>
-              <span className="todo-text">{todo.text}</span>
+              <span className="todo-text">{todo.title}</span>
               <button 
                 className="todo-delete"
-                onClick={() => deleteTodo(todo.id)}
+                onClick={() => deleteTodo(todo._id)}
               >
                 <Trash2 size={18} />
               </button>
             </li>
+            </div>
           ))}
         </ul>
+      )}
       </div>
     </div>
   );

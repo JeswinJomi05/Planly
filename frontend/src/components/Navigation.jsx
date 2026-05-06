@@ -5,9 +5,9 @@ import './Navigation.css';
 const Navigation = () => {
   const navItems = [
     { path: '/', name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { path: '/todo', name: 'Todo List', icon: <CheckSquare size={20} /> },
+    { path: '/tasks', name: 'Tasks', icon: <CheckSquare size={20} /> },
     { path: '/notes', name: 'Notes', icon: <StickyNote size={20} /> },
-    { path: '/flashcards', name: 'Flashcards', icon: <Layers size={20} /> },
+    { path: '/cards', name: 'Flashcards', icon: <Layers size={20} /> },
   ];
 
   return (

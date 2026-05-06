@@ -3,16 +3,16 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import TodoList from './components/TodoList';
-import Notes from './components/Notes';
-import Flashcards from './components/Flashcards';
-import NoteDetail from './pages/NoteDetail';
-import './App.css';
+
+import Flashcards from './pages/cards/Flashcards.jsx';
+import Notes from './pages/notes/Notes';
+import NoteDetail from './pages/notes/NoteDetail';
+import CreateNote from './pages/notes/CreateNote.jsx';
+import CreateCard from './pages/cards/CreateCard.jsx';
+import CardDetail from './pages/cards/CardDetail.jsx';
 
 function App() {
-  const [notes, setNotes] = useState([
-    { id: 1, title: 'Project Ideas', content: 'Explore React UI integrations', date: 'Oct 23' },
-    { id: 2, title: 'Meeting Notes', content: 'Discuss the Planly roadmap and feature set for Q3.', date: 'Oct 22' },
-  ]);
+  
 
   return (
     <div className="app-container">
@@ -20,10 +20,14 @@ function App() {
       <main className="main-content animate-fade-in">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/todo" element={<TodoList />} />
-          <Route path="/notes" element={<Notes notes={notes} setNotes={setNotes} />} />
-          <Route path="/notes/:id" element={<NoteDetail notes={notes} setNotes={setNotes} />} />
-          <Route path="/flashcards" element={<Flashcards />} />
+          <Route path="/tasks" element={<TodoList />} />
+          <Route path="/notes" element={<Notes/>} />
+          <Route path="/notes/create" element={<CreateNote/>} />
+          <Route path="/notes/:id" element={<NoteDetail/>} />
+          <Route path="/cards" element={<Flashcards />} />
+          <Route path="/cards/create" element={<CreateCard />} />
+          <Route path="/cards/:id" element={<CardDetail />} />
+
         </Routes>
       </main>
     </div>

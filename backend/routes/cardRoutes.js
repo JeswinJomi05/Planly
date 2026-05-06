@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router();
 
 router.get("/",getAllCards);
-router.patch("/:id",getCardById);
+router.get("/:id",getCardById);
 router.post("/",createCard);
 router.put("/:id",updateCard);
 router.delete("/:id",deleteCard);

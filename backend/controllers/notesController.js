@@ -9,9 +9,17 @@ export const getAllNotes = async (req,res)=>{
     }   
 };
 
+import mongoose from 'mongoose';
+
 export const getNoteById = async (req,res)=>{
+    
     try{
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid Note ID" });
+        }
+        
         const note = await Note.findById(req.params.id);
+        
         if(!note){
             return res.status(404).json({ message: "Note not found" });
         }

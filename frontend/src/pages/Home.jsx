@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CheckSquare, StickyNote, Layers, ArrowRight } from 'lucide-react';
+
 import './Home.css';
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
           </div>
           <h2>Todo List</h2>
           <p>Organize your tasks and stay ahead of your schedule.</p>
-          <Link to="/todo" className="btn btn-primary module-link">
+          <Link to="/tasks" className="btn btn-primary module-link">
             <span>Open Tasks</span>
             <ArrowRight size={16} />
           </Link>
@@ -41,7 +42,7 @@ const Home = () => {
           </div>
           <h2>Flashcards</h2>
           <p>Master new concepts with interactive study cards.</p>
-          <Link to="/flashcards" className="btn btn-primary module-link">
+          <Link to="/cards" className="btn btn-primary module-link">
             <span>Study Now</span>
             <ArrowRight size={16} />
           </Link>

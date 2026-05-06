@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use(cors({
     origin:"http://localhost:5173",
+
 }))
 app.use(rateLimiter);
 app.use("/api/notes",notesRoutes);
@@ -24,8 +25,3 @@ connectDB().then(()=>{
 });
 })
 
-
-
-
-
-//mongodb+srv://jeswin:Jeswin@123@cluster0.j06nyjx.mongodb.net/?appName=Cluster0
