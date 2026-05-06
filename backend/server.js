@@ -14,12 +14,10 @@ const __dirname = path.resolve();
 app.use(express.json());
 if(process.env.NODE_ENV === 'development') {
     app.use(cors({
-        origin: 'http://localhost:5173',
-    }));
-}
-app.use(cors({
     origin: process.env.VITE_FRONTEND_URL,
 }));
+}
+
 app.use("/api/notes",notesRoutes);
 app.use("/api/cards",cardsRoutes);
 app.use("/api/tasks",taskRoutes);
