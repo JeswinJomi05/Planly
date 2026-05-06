@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.VITE_FRONTEND_URL,
 }));
 app.use("/api/notes",notesRoutes);
 app.use("/api/cards",cardsRoutes);
