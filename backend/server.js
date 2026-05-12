@@ -13,7 +13,10 @@ dotenv.config();
 const app = express();
 const __dirname = path.resolve();
 const PORT = process.env.PORT || 3000;
-
+const corsConfig = {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
   app.use(
     cors({
       origin: process.env.VITE_FRONTEND_URL,
