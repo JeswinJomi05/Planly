@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install && npm install --prefix ../frontend && npm run build --prefix ../frontend",
+  "installCommand": "npm ci && npm ci --prefix ../frontend && npm run build --prefix ../frontend",
   "version": 2,
   "builds": [
     {
@@ -11,7 +11,8 @@
           "controllers/**",
           "models/**",
           "routes/**",
-          ".env.local"
+          ".env.local",
+          "node_modules/mongoose/lib/**"
         ]
       }
     }
