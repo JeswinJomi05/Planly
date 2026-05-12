@@ -1,13 +1,26 @@
 {
-  "installCommand": "npm install",
+  "installCommand": "npm install && npm install --prefix ../frontend && npm run build --prefix ../frontend",
   "version": 2,
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "config/**",
+          "controllers/**",
+          "models/**",
+          "routes/**",
+          ".env.local"
+        ]
+      }
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
     {
       "src": "/(.*)",
       "dest": "server.js"
