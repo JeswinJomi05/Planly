@@ -12,7 +12,7 @@
           "models/**",
           "routes/**",
           ".env.local",
-          "node_modules/mongoose/lib/**"
+          "node_modules/mongoose/**"
         ]
       }
     }
