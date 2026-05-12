@@ -14,14 +14,12 @@ const app = express();
 const __dirname = path.resolve();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-if (process.env.NODE_ENV === 'development') {
   app.use(
     cors({
       origin: process.env.VITE_FRONTEND_URL,
     })
   );
-}
+
 
 app.use("/api/notes", notesRoutes);
 app.use("/api/cards", cardsRoutes);
